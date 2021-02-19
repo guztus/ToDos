@@ -1,51 +1,97 @@
 <template>
-  <div>
+  <div class="content">
     <form @submit="addTodo">
-      <input type="text" v-model="title" name="title" placeholder="Add Todo..." />
-      <button type="submit" value="Submit" class="btn">Add</button>
+      <div class="row">
+        <div class="col-3">
+          <input
+            class="form-control"
+            id="title-text-area"
+            maxlength="255"
+            type="text"
+            v-model="title"
+            name="title"
+            placeholder="Add a title..."
+          />
+        </div>
+        <div class="col-8">
+          <textarea
+            class="form-control"
+            id="description-text-area"
+            maxlength="255"
+            type="text"
+            v-model="description"
+            name="description"
+            placeholder="Add a description..."
+          >
+          </textarea>
+        </div>
+        <div class="col-1">
+          <button
+            id="add-button"
+            type="submit"
+            value="Submit"
+            class="btn btn-success"
+            :disabled="dontAllowSubmit()"
+          >
+            Add
+          </button>
+        </div>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-import uuid from "uuid";
-
 export default {
   name: "AddToDo",
   data() {
-      return {
-          title: ''
-      }
+    return {
+      title: "",
+      description: "",
+    };
   },
   methods: {
-      addTodo(e) {
-          e.preventDefault();
+    addTodo(e) {
+      e.preventDefault();
 
-          var newTodo = {
-              id: uuid.v4(),
-              title: this.title,
-              completed: false,
-          }
+      var todo = {
+        title: this.title,
+        description: this.description,
+      };
 
-          this.$emit('add-todo', newTodo);
+      this.$emit("add-todo", todo);
 
-          this.title = '';
+      this.title = "";
+      this.description = "";
+    },
+    dontAllowSubmit() {
+      if (this.title.length <= 3 || this.description.length <= 3) {
+        return true;
+      } else {
+        return false;
       }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-form {
-  display: flex;
+.content {
+  margin-bottom: 25px;
 }
 
-input[type="text"] {
-  flex: 10;
-  padding: 5px;
+#title-text-area {
+  width: 100%;
+  height: 40px;
 }
 
-input[type="submit"] {
-  flex: 2;
+#description-text-area {
+  width: 100%;
+  resize: none;
+  height: 40px;
+}
+
+#add-button {
+  float: right;
 }
 </style>

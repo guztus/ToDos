@@ -17,9 +17,10 @@ class ApiController extends Controller
     public function add(Request $request)
     {
         $title = $request->input('title');
+        $description = $request->input('description');
 
         DB::table('todos')->insert(
-            ['title' => $title, 'completed' => 0]
+            ['title' => $title, 'description' => $description, 'completed' => 0]
         );
 
         return var_dump('test');

@@ -1,8 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" class="container-fluid">
     <Header />
     <AddToDo @add-todo="addToDo" />
-    <ToDos :todos="todos" @completed-change="completedChange" @del-todo="deleteTodo" />
+    <ToDos
+      :todos="todos"
+      @completed-change="completedChange"
+      @del-todo="deleteTodo"
+    />
   </div>
 </template>
 
@@ -46,7 +50,7 @@ export default {
       axios
         .post("/api/completed-change", {
           id: todo.id,
-          completed: todo.completed
+          completed: todo.completed,
         })
         .then((response) => {
           console.log(response);
@@ -65,12 +69,11 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    addToDo(newTodo) {
-      this.todos.push(newTodo);
-
+    addToDo(todo) {
       axios
         .post("/api/add", {
-          title: newTodo.title,
+          title: todo.title,
+          description: todo.description,
         })
         .then((response) => {
           console.log(response);
@@ -86,27 +89,5 @@ export default {
 </script>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.4;
-}
-
-.btn {
-  display: inline-block;
-  border: none;
-  background: #555;
-  color: #fff;
-  padding: 7px 20px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: #666;
-}
 </style>

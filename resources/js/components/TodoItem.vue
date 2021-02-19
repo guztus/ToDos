@@ -1,10 +1,18 @@
 <template>
-  <div class="todo-item" :class="{ 'is-complete': todo.completed }">
-    <p>
-      <input type="checkbox" :checked="todo.completed" @change="completedChange" />
-      {{ todo.title }}
-      <button class="del" @click="onDelete">x</button>
-    </p>
+  <div class="todo-item" :class="{ 'is-complete': todo.completed }" @click="completedChange">
+    <div class="row">
+      <div class="col-12">
+        <b>{{ todo.title }}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-11">
+        <span id="description">Description: </span> {{ todo.description }}
+      </div>
+      <div class="col-1">
+        <b-button id="delete-button" variant="danger" @click="onDelete">x</b-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,8 +34,6 @@ export default {
 
 <style scoped>
 .todo-item {
-  background: white;
-  padding: 10px;
   border-bottom: 1px #ccc dotted;
 }
 
@@ -35,13 +41,13 @@ export default {
   text-decoration: line-through;
 }
 
-.del {
-  background: red;
-  color: white;
-  border: none;
-  padding: 5px 9px;
-  border-radius: 50%;
-  cursor: pointer;
+#description {
+  font-style: italic;
+}
+
+#delete-button {
   float: right;
+  margin-top: -15px;
+  margin-bottom: 10px;
 }
 </style>
