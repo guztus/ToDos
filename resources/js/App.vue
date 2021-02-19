@@ -65,12 +65,12 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    addToDo(todo) {
-      this.todos.push(todo);
+    addToDo(newTodo) {
+      this.todos.push(newTodo);
 
       axios
         .post("/api/add", {
-          title: todo.title,
+          title: newTodo.title,
         })
         .then((response) => {
           console.log(response);

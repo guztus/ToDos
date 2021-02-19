@@ -21,13 +21,13 @@ export default {
       addTodo(e) {
           e.preventDefault();
 
-          var todo = {
+          var newTodo = {
               id: uuid.v4(),
               title: this.title,
               completed: false,
           }
 
-          this.$emit('add-todo', todo);
+          this.$emit('add-todo', newTodo);
 
           this.title = '';
       }
